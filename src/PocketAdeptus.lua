@@ -104,7 +104,7 @@ local function setCP(instance)
           if redCPToSpend > PocketAdeptus.availableRedCP then
                PlaySound(SOUNDS.GENERAL_ALERT_ERROR)
                alert("You do not have enough Champion Points.")
-               alert("Red CP available: " .. Pocketadeptus.availableRedCP)
+               alert("Red CP available: " .. PocketAdeptus.availableRedCP)
                alert("Red CP attempting to spend: " .. redCPToSpend)
                return
           end
