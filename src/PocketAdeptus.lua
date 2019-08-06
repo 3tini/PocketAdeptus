@@ -24,7 +24,7 @@ local function dbg(msg)
      end
 end
 
-local function alert(msg)
+function PocketAdeptus.alert(msg)
      d("|cff0096PocketAdeptus ::|r |cff0000" .. msg .. "|r")
 end
 
@@ -41,7 +41,7 @@ local function getCP(instance)
           end
           StartChatInput(cp:sub(1, - 3)) -- Places the CP configuration into the chat box and trims the extra "," at the end of the string
      else
-          alert("Valid options include: aa, as, cr, dsa, hof, hrc, ma, mol, so, brp, ss, gen") -- Input validation for non-supported input
+          PocketAdeptus.alert("Valid options include: aa, as, cr, dsa, hof, hrc, ma, mol, so, brp, ss, gen") -- Input validation for non-supported input
      end
 end
 
@@ -103,9 +103,9 @@ local function setCP(instance)
 
           if redCPToSpend > PocketAdeptus.availableRedCP then
                PlaySound(SOUNDS.GENERAL_ALERT_ERROR)
-               alert("You do not have enough Champion Points.")
-               alert("Red CP available: " .. PocketAdeptus.availableRedCP)
-               alert("Red CP attempting to spend: " .. redCPToSpend)
+               PocketAdeptus.alert("You do not have enough Champion Points.")
+               PocketAdeptus.alert("Red CP available: " .. PocketAdeptus.availableRedCP)
+               PocketAdeptus.alert("Red CP attempting to spend: " .. redCPToSpend)
                return
           end
 
@@ -127,7 +127,7 @@ local function setCP(instance)
           if GetNumPointsSpentOnChampionSkill(4, 4) == PocketAdeptus.sv[instance]["resistant"] then count = count + 1 end
 
           if count == 12 then -- If count is 12 (3 Trees 4 skill per tree) then all of the red cp trees had the correct configuration and didn't need to be changed
-               alert("Red CP is already set for " .. instances[instance])
+               PocketAdeptus.alert("Red CP is already set for " .. instances[instance])
                return
           end
 
@@ -191,9 +191,9 @@ local function setCP(instance)
 
           if PocketAdeptus.sv["autoConfirm"] then
                SpendPendingChampionPoints() -- Automatically confirms CP configurations if setting is enabled
-               alert("Auto-confirmed change to " .. instances[instance] .. " red CP")
+               PocketAdeptus.alert("Auto-confirmed change to " .. instances[instance] .. " red CP")
           else
-               alert(instances[instance] .. " red CP set but needs to be confirmed manually in the CP redistribution menu") -- Otherwise requires manual confirmation
+               PocketAdeptus.alert(instances[instance] .. " red CP set but needs to be confirmed manually in the CP redistribution menu") -- Otherwise requires manual confirmation
           end
      end
 end
@@ -214,8 +214,8 @@ function PocketAdeptus.UpdateCP()
      PocketAdeptus.sv.ma = PocketAdeptus.defaults.ma
      PocketAdeptus.sv.brp = PocketAdeptus.defaults.brp
      PocketAdeptus.sv.ss = PocketAdeptus.defaults.ss
-     alert("Updated Trial CP Presets")
-     alert("Reloading UI...")
+     PocketAdeptus.alert("Updated Trial CP Presets")
+     PocketAdeptus.alert("Reloading UI...")
      zo_callLater(function() ReloadUI() end, 350)
 end
 
@@ -470,9 +470,9 @@ function PocketAdeptus.OnAddOnLoaded(event, addonName)
      end
 
      if PocketAdeptus.CPVersion > PocketAdeptus.sv.CPVersion then
-          alert("PocketAdeptus has been updated and the default CP has changed.")
-          alert("If you would like to switch your currently saved CP to the new version type '/pocketupdate' or use the 'Update CP' button in the Pocket Adeptus settings.")
-          alert("WARNING: Running this command will override currently saved CP presets and reload your UI.")
+          PocketAdeptus.alert("PocketAdeptus has been updated and the default CP has changed.")
+          PocketAdeptus.alert("If you would like to switch your currently saved CP to the new version type '/pocketupdate' or use the 'Update CP' button in the Pocket Adeptus settings.")
+          PocketAdeptus.alert("WARNING: Running this command will override currently saved CP presets and reload your UI.")
           PocketAdeptus.sv.CPVersion = PocketAdeptus.CPVersion
      end
 end
