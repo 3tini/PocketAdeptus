@@ -12,7 +12,10 @@
 ## Author: |cff0096init3|r, |cff966ds.av|r & |c721919adeptusminor|
 ## Version: 2.4
 ## SavedVariables: PocketAdeptusVars PocketAdeptusCharacterVars
-## DependsOn: LibAddonMenu-2.0 LibSlashCommander
+## DependsOn: LibAddonMenu-2.0>=29 LibSlashCommander
+
+; PackageReleaseDir: releases
+; PackageBumpFiles: src/PocketAdeptus.lua
 
 src/PocketAdeptus.lua
 src/Defaults.lua

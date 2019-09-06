@@ -387,64 +387,50 @@ local function OnZoneChanged()
      end
 
      if GetCurrentZoneDungeonDifficulty() == DUNGEON_DIFFICULTY_VETERAN then
-          dbg("Dungeon Difficulty Set to Veteran")
-          dbg("Last Zone: " .. lastZone .. " (" .. GetZoneNameById(lastZone) .. ")")
-          dbg("Current Zone: " .. zone .. " (" .. GetZoneNameById(zone) .. ")")
-     elseif GetCurrentZoneDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL then
-          dbg("Dungeon Difficulty Set to Normal")
-          dbg("Last Zone: " .. lastZone .. " (" .. GetZoneNameById(lastZone) .. ")")
-          dbg("Current Zone: " .. zone .. " (" .. GetZoneNameById(zone) .. ")")
-          lastZone = zone
-          PocketAdeptus.sv["lastZone"] = zone
-          return
+          if lastZone ~= zone then
+               if zone == 638 then -- Aetherian Archive
+                    dbg("Auto-Set CP for Aetherian Archive")
+                    setCP("aa")
+               elseif zone == 636 then -- Hel Ra Citadel
+                    dbg("Auto-Set CP for Hel Ra Citadel")
+                    setCP("hrc")
+               elseif zone == 639 then -- Sanctum Ophidia
+                    dbg("Auto-Set CP for Sanctum Ophidia")
+                    setCP("so")
+               elseif zone == 725 then -- Maw of Lorkhaj
+                    dbg("Auto-Set CP for Maw of Lorkhaj")
+                    setCP("mol")
+               elseif zone == 975 then -- Halls of Fabrication
+                    dbg("Auto-Set CP for Halls of Fabrication")
+                    setCP("hof")
+               elseif zone == 1000 then -- Asylum Sanctorium
+                    dbg("Auto-Set CP for Asylum Sanctorium")
+                    setCP("as")
+               elseif zone == 1051 then -- Cloudrest
+                    dbg("Auto-Set CP for Cloudrest")
+                    setCP("cr")
+               elseif zone == 635 then -- Dragonstar Arena
+                    dbg("Auto-Set CP for Dragonstar Arena")
+                    setCP("dsa")
+               elseif zone == 684 then -- Maelstrom Arena
+                    dbg("Auto-Set CP for Maelstrom Arena")
+                    setCP("ma")
+               elseif zone == 1082 then
+                    dbg("Auto-Set CP for Blackrose Prison")
+                    setCP("brp")
+               elseif zone == 1121 then
+                    dbg("Auto-Set CP for Sunspire")
+                    setCP("ss")
+               else end
+               lastZone = zone
+               PocketAdeptus.sv["lastZone"] = zone
+          else
+               dbg("Last Zone equals Current Zone")
+          end
      else
-          dbg("Not in a dungeon")
-          dbg("Last Zone: " .. lastZone .. " (" .. GetZoneNameById(lastZone) .. ")")
-          dbg("Current Zone: " .. zone .. " (" .. GetZoneNameById(zone) .. ")")
+          dbg("Not in Veteran Dungeon, not auto-setting CP")
           lastZone = zone
           PocketAdeptus.sv["lastZone"] = zone
-          return
-     end
-
-     if lastZone ~= zone then
-          if zone == 638 then -- Aetherian Archive
-               dbg("Auto-Set CP for Aetherian Archive")
-               setCP("aa")
-          elseif zone == 636 then -- Hel Ra Citadel
-               dbg("Auto-Set CP for Hel Ra Citadel")
-               setCP("hrc")
-          elseif zone == 639 then -- Sanctum Ophidia
-               dbg("Auto-Set CP for Sanctum Ophidia")
-               setCP("so")
-          elseif zone == 725 then -- Maw of Lorkhaj
-               dbg("Auto-Set CP for Maw of Lorkhaj")
-               setCP("mol")
-          elseif zone == 975 then -- Halls of Fabrication
-               dbg("Auto-Set CP for Halls of Fabrication")
-               setCP("hof")
-          elseif zone == 1000 then -- Asylum Sanctorium
-               dbg("Auto-Set CP for Asylum Sanctorium")
-               setCP("as")
-          elseif zone == 1051 then -- Cloudrest
-               dbg("Auto-Set CP for Cloudrest")
-               setCP("cr")
-          elseif zone == 635 then -- Dragonstar Arena
-               dbg("Auto-Set CP for Dragonstar Arena")
-               setCP("dsa")
-          elseif zone == 684 then -- Maelstrom Arena
-               dbg("Auto-Set CP for Maelstrom Arena")
-               setCP("ma")
-          elseif zone == 1082 then
-               dbg("Auto-Set CP for Blackrose Prison")
-               setCP("brp")
-          elseif zone == 1121 then
-               dbg("Auto-Set CP for Sunspire")
-               setCP("ss")
-          else end
-          lastZone = zone
-          PocketAdeptus.sv["lastZone"] = zone
-     else
-          dbg("Last Zone equals Current Zone")
      end
 end
 
@@ -463,7 +449,7 @@ function PocketAdeptus.OnAddOnLoaded(event, addonName)
           PocketAdeptus.useGlobalVars = false
      end
 
-     PocketAdeptus.createSettingsWindow()
+     PocketAdeptus.CreateSettingsWindow()
 
      if PocketAdeptus.sv["SetOnZoneChange"] == true then
           CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", OnZoneChanged)
